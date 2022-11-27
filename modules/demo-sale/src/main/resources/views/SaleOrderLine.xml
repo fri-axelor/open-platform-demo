@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <grid name="sale-order-line-grid" title="Sale order lines" model="com.axelor.sale.db.SaleOrderLine">
+    <field name="product" />
+    <field name="qty"/>
+    <field name="price" />
+    <field name="vat"/>
+    <field name="totalPrice" />
+    <field name="inTaxTotalPrice" />
+  </grid>
+
+  <form name="sale-order-line-form" title="Sale order line" model="com.axelor.sale.db.SaleOrderLine" width="large">
+    <panel name="mainPanel">
+      <field name="product" colSpan="12" onChange="action-sale-order-line-get-and-compute" required="true"/>
+      <field name="qty" onChange="action-sale-order-line-compute"/>
+      <field name="price" onChange="action-sale-order-line-compute"/>
+      <field name="vat" colSpan="4" onChange="action-sale-order-line-compute"/>
+      <field name="totalPrice" colSpan="4" readonly="true"/>
+      <field name="inTaxTotalPrice" colSpan="4" readonly="true"/>
+      <field name="description" colSpan="12" widget="html" showTitle="false"/>
+    </panel>
+  </form>
+
+  <action-record name="action-sale-order-line-get-product-information" model="com.axelor.sale.db.SaleOrderLine">
+    <field name="price" expr="eval: product?.price"/>
+    <field name="description" expr="eval: product?.description"/>
+  </action-record>
+
+  <action-record name="action-sale-order-line-compute" model="com.axelor.sale.db.SaleOrderLine">
+    <field name="totalPrice" expr="eval: price * qty"/>
+    <field name="inTaxTotalPrice" expr="eval: price * qty * (1 + vat)"/>
+  </action-record>
+
+  <action-group name="action-sale-order-line-get-and-compute">
+    <action name="action-sale-order-line-get-product-information"/>
+    <action name="action-sale-order-line-compute"/>
+  </action-group>
+
+
+</object-views>

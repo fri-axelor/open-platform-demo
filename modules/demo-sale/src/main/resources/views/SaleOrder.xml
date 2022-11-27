@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <grid name="sale-order-grid" title="Sale orders" model="com.axelor.sale.db.SaleOrder">
+    <field name="contact"/>
+    <field name="orderDate"/>
+    <field name="totalPrice" />
+    <field name="inTaxTotalPrice" />
+  </grid>
+
+  <form name="sale-order-form" title="Sale order" model="com.axelor.sale.db.SaleOrder" width="large" onNew="action-sale-order-record-set-order-date">
+    <panel title="Overview" itemSpan="12">
+      <field name="orderStatus" widget="NavSelect" showTitle="false" readonly="true"/>
+      <field name="contact" required="true"/>
+
+    </panel>
+    <panel-related field="saleOrderLineList" title="Details" form-view="sale-order-line-form" grid="sale-order-line-grid" onChange="action-sale-order-record-compute-total" readonlyIf="orderStatus != 1"/>
+
+    <panel sidebar="true" title="Actions" showIf="orderStatus != 3">
+      <button onClick="action-sale-order-validate-check-validation,action-sale-order-record-set-validated,save" name="validateBtn" title="Validate" showIf="orderStatus == 1"/>
+      <button onClick="action-sale-order-record-set-canceled,save" name="cancelBtn" title="Cancel" showIf="orderStatus == 2"/>
+    </panel>
+
+    <panel sidebar="true" title="Totals" canCollapse="true" readonly="true" collapseIf="!saleOrderLineList">
+      <field name="totalPrice"/>
+      <field name="inTaxTotalPrice"/>
+    </panel>
+
+    <panel sidebar="true" name="datePanel" title="Dates" canCollapse="true" readonly="true" collapseIf="!orderDate &amp;&amp; !confirmationDate">
+      <field name="orderDate"/>
+      <field name="confirmationDate"/>
+    </panel>
+  </form>
+
+  <action-record name="action-sale-order-record-set-order-date" model="com.axelor.sale.db.SaleOrder">
+    <field name="orderDate" expr="eval: __date__"/>
+  </action-record>
+
+  <action-record name="action-sale-order-record-compute-total" model="com.axelor.sale.db.SaleOrder">
+    <field name="totalPrice" expr="eval: saleOrderLineList?.totalPrice.sum()"/>
+    <field name="inTaxTotalPrice" expr="eval: saleOrderLineList?.inTaxTotalPrice.sum()"/>
+  </action-record>
+
+  <action-record name="action-sale-order-record-set-validated" model="com.axelor.sale.db.SaleOrder">
+    <field name="orderStatus" expr="eval: com.axelor.sale.db.repo.SaleOrderRepository.STATUS_VALIDATED"/>
+    <field name="confirmationDate" expr="eval: __date__"/>
+  </action-record>
+
+  <action-record name="action-sale-order-record-set-canceled" model="com.axelor.sale.db.SaleOrder">
+    <field name="orderStatus" expr="eval: com.axelor.sale.db.repo.SaleOrderRepository.STATUS_CANCELED"/>
+  </action-record>
+
+  <action-validate name="action-sale-order-validate-check-validation">
+    <error message="The sale order must contain at least one detail's line in order to be validated" if="!saleOrderLineList"/>
+  </action-validate>
+
+</object-views>

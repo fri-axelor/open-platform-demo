@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <selection name="sale-order-status-select" id="invoice-sale-order-status-select">
+    <option value="4" order="4">Invoiced</option>
+  </selection>
+
+  <selection name="invoice-status-select">
+    <option value="1">Draft</option>
+    <option value="2">Validated</option>
+  </selection>
+
+</object-views>

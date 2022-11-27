@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <grid name="contact-grid" title="Contacts" model="com.axelor.contact.db.Contact">
+    <field name="fullName"/>
+    <field name="dateOfBirth"/>
+    <field name="email"/>
+    <field name="phone"/>
+  </grid>
+
+  <form name="contact-form" title="Contact" model="com.axelor.contact.db.Contact" width="large">
+    <panel title="Main informations" itemSpan="12">
+      <field name="image" widget="image" colSpan="3" showTitle="false"/>
+      <field name="title" colSpan="3"/>
+      <field name="lastName" colSpan="3"/>
+      <field name="firstName" colSpan="3"/>
+
+    </panel>
+    <panel title="Contact informations">
+      <field name="dateOfBirth"/>
+      <field name="email" widget="email"/>
+      <field name="phone" widget="phone"/>
+    </panel>
+    <panel title="Address">
+      <field name="address" colSpan="12" canEdit="true" canNew="true" showTitle="false"/>
+    </panel>
+  </form>
+
+
+</object-views>

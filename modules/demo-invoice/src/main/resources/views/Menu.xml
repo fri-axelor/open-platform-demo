@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <menuitem name="menu-invoice-root" order="-90" title="Invoice"
+    icon="fa-calculator" icon-background="blue" />
+
+  <menuitem name="menu-invoice-invoice" order="-90"
+    title="Invoices" action="action.invoice" parent="menu-invoice-root" />
+
+  <action-view name="action.invoice" title="Invoices"
+    model="com.axelor.invoice.db.Invoice">
+    <view type="grid" name="invoice-grid" />
+    <view type="form" name="invoice-form" />
+  </action-view>
+
+</object-views>

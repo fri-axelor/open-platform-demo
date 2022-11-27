@@ -5,8 +5,16 @@
 
   <menuitem name="menu-contact-book" order="-100" title="Address Book" icon="fa-book" icon-background="green"/>
 
+  <menuitem name="menu-contact-contact" parent="menu-contact-book" order="0"
+            title="Contacts"
+            action="contact.contact"/>
 
-  <menuitem name="menu-contact-config" parent="menu-contact-book"
+  <action-view name="contact.contact" title="Contacts" model="com.axelor.contact.db.Contact">
+    <view type="grid" name="contact-grid"/>
+    <view type="form" name="contact-form"/>
+  </action-view>
+
+  <menuitem name="menu-contact-config" parent="menu-contact-book" order="10"
     title="Configuration"/>
 
 
@@ -17,6 +25,24 @@
   <action-view name="contact.title" title="Title" model="com.axelor.contact.db.Title">
     <view type="grid" name="title-grid"/>
     <view type="form" name="title-form"/>
+  </action-view>
+
+  <menuitem name="menu-contact-country" parent="menu-contact-config"
+    title="Countries"
+    action="contact.country"/>
+
+  <action-view name="contact.country" title="Title" model="com.axelor.contact.db.Country">
+    <view type="grid" name="country-grid"/>
+    <view type="form" name="country-form"/>
+  </action-view>
+
+    <menuitem name="menu-contact-address" parent="menu-contact-config"
+    title="Addresses"
+    action="contact.address"/>
+
+  <action-view name="contact.address" title="Addresses" model="com.axelor.contact.db.Address">
+    <view type="grid" name="address-grid"/>
+    <view type="form" name="address-form"/>
   </action-view>
 
 </object-views>

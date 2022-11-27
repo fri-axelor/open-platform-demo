@@ -2,16 +2,19 @@
 <object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
 
-  <grid name="title-grid" title="Titles" model="com.axelor.contact.db.Title">
+  <grid name="product-grid" title="Products" model="com.axelor.sale.db.Product">
     <field name="name" />
-    <field name="code" />
+    <field name="price" />
   </grid>
 
-  <form name="title-form" title="Title" model="com.axelor.contact.db.Title" width="mini">
-    <panel title="Overview" itemSpan="12">
+  <form name="product-form" title="Product" model="com.axelor.sale.db.Product" width="large">
+    <panel>
+      <field name="image" widget="image" colSpan="12"/>
       <field name="name"/>
-      <field name="code" />
+      <field name="price"/>
+      <field name="description" widget="html" colSpan="12" showTitle="false"/>
     </panel>
   </form>
+
 
 </object-views>

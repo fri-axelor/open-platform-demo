@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+  <module name="contact" package="com.axelor.contact.db"/>
+
+  <entity name="Contact">
+    <binary name="image" title="Image"/>
+    <many-to-one name="title" title="Title" ref="com.axelor.contact.db.Title"/>
+    <string name="lastName" title="Last name" required="true" />
+    <string name="firstName" title="First name" required="true"/>
+    <string name="fullName" namecolumn="true" search="firstName,lastName">
+      <![CDATA[
+          return String.format("%s %s %s", title == null ? "" : title.getName(), firstName == null || firstName.isEmpty() ? "" : firstName, lastName == null || lastName.isEmpty() ? "" : lastName);
+      ]]>
+    </string>
+    <date name="dateOfBirth" title="Date of Birth"/>
+    <string name="email" title="Email"/>
+    <string name="phone" title="Phone"/>
+    <many-to-one ref="com.axelor.contact.db.Address" name="address"/>
+  </entity>
+
+</domain-models>

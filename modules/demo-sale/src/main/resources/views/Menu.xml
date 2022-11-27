@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <menuitem name="menu-sale-root" order="-90" title="Sale" icon="fa-shopping-cart" icon-background="red"/>
+
+  <menuitem name="menu-sale-product" title="Product" parent="menu-sale-root" action="sale.products"/>
+
+  <action-view name="sale.products" title="Products" model="com.axelor.sale.db.Product">
+    <view type="grid" name="product-grid"/>
+    <view type="form" name="product-form"/>
+  </action-view>
+
+  <menuitem name="menu-sale-sale" order="-90" title="Sale orders" action="sale.sale.orders" parent="menu-sale-root"/>
+
+  <action-view name="sale.sale.orders" title="Sale orders" model="com.axelor.sale.db.SaleOrder">
+    <view type="grid" name="sale-order-grid"/>
+    <view type="form" name="sale-order-form"/>
+  </action-view>
+
+</object-views>

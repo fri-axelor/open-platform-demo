@@ -42,6 +42,9 @@ allprojects {
 dependencies {
   // add module dependencies
   implementation project(":modules:demo-contact")
+  implementation project(":modules:demo-sale")
+  implementation project(":modules:demo-invoice")
+  implementation project(":modules:demo-account")
 }
 
 wrapper {

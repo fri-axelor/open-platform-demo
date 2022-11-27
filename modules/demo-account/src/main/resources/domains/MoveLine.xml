@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+  <module name="account" package="com.axelor.account.db"/>
+
+  <entity name="MoveLine">
+    <many-to-one ref="com.axelor.account.db.Account" name="account" title="Account"/>
+    <many-to-one ref="com.axelor.account.db.Move" name="move" title="Move"/>
+    <integer name="type" title="Type" selection="account-move-line-type-select"/>
+    <decimal name="debitAmount" title="Debit"/>
+    <decimal name="creditAmount" title="Credit"/>
+
+    <extra-code>
+       <![CDATA[
+        // TYPE
+        public static final int TYPE_DEBIT = 1;
+        public static final int TYPE_CREDIT = 2;
+      ]]>
+
+    </extra-code>
+  </entity>
+
+</domain-models>

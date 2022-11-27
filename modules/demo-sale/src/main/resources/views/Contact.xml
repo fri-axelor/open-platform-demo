@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <form name="contact-form" id="sale-contact-form" title="Contact" model="com.axelor.contact.db.Contact" extension="true">
+    <extend target="/">
+      <insert position="after">
+    <panel-dashlet action="action-contact-view-my-sale-order" title="My sale orders"/>
+      </insert>
+    </extend>
+  </form>
+
+  <action-view name="action-contact-view-my-sale-order" title="My sale orders" model="com.axelor.sale.db.SaleOrder">
+    <view type="grid" name="sale-order-grid"/>
+    <view type="form" name="sale-order-form"/>
+    <domain>self.contact.id = :contactId</domain>
+    <context name="contactId" expr="eval: id"/>
+  </action-view>
+
+</object-views>

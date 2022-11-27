@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+  <module name="sale" package="com.axelor.sale.db"/>
+
+  <entity name="SaleOrder">
+    <integer name="orderStatus" title="Status" selection="sale-order-status-select" default="1"/>
+    <many-to-one ref="com.axelor.contact.db.Contact" name="contact" title="Contact"/>
+    <date name="orderDate" title="Order date"/>
+    <date name="confirmationDate" title="Confirmation date"/>
+    <decimal name="totalPrice" title="Total"/>
+    <decimal name="inTaxTotalPrice" title="Total (in tax)"/>
+    <one-to-many ref="com.axelor.sale.db.SaleOrderLine" name="saleOrderLineList" mappedBy="saleOrder"/>
+
+   <extra-code>
+     <![CDATA[
+
+           // ORDER STATUS
+        public static final int STATUS_DRAFT = 1;
+        public static final int STATUS_VALIDATED = 2;
+        public static final int STATUS_CANCELED = 3;
+      ]]>
+   </extra-code>
+  </entity>
+
+
+</domain-models>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <grid name="invoice-grid" title="Invoices" model="com.axelor.invoice.db.Invoice">
+    <field name="contact"/>
+    <field name="invoiceDate"/>
+    <field name="totalPrice" />
+    <field name="inTaxTotalPrice" />
+  </grid>
+
+  <form name="invoice-form" title="Invoice" model="com.axelor.invoice.db.Invoice" width="large" onNew="action-invoice-method-set-invoice-date">
+    <panel title="Overview" itemSpan="12">
+      <field name="invoiceStatus" widget="NavSelect" showTitle="false" readonly="true"/>
+      <field name="contact" required="true"/>
+    </panel>
+    <panel-related field="invoiceLineList" title="Details" form-view="invoice-line-form" grid="invoice-line-grid" onChange="action-invoice-method-compute" readonlyIf="invoiceStatus != 1" />
+
+    <panel sidebar="true" title="Actions" canCollapse="true" showIf="invoiceStatus != 3">
+      <button onClick="save,action-invoice-method-validate-invoice" name="validateBtn" title="Validate" showIf="invoiceStatus == 1"/>
+    </panel>
+
+    <panel sidebar="true" title="Totals" canCollapse="true" readonly="true">
+      <field name="totalPrice"/>
+      <field name="inTaxTotalPrice"/>
+    </panel>
+
+    <panel sidebar="true" title="Secondary informations" canCollapse="true" readonly="true">
+      <field name="invoiceDate"/>
+    </panel>
+  </form>
+
+  <action-method name="action-invoice-method-set-invoice-date">
+    <call class="com.axelor.invoice.web.InvoiceController" method="setInvoiceDate"/>
+  </action-method>
+
+    <action-method name="action-invoice-method-validate-invoice">
+    <call class="com.axelor.invoice.web.InvoiceController" method="validateInvoice"/>
+  </action-method>
+
+   <action-method name="action-invoice-method-compute">
+    <call class="com.axelor.invoice.web.InvoiceController" method="compute"/>
+  </action-method>
+
+</object-views>

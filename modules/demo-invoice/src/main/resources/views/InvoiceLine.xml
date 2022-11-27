@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <grid name="invoice-line-grid" title="Invoices" model="com.axelor.invoice.db.InvoiceLine">
+    <field name="product" />
+    <field name="qty"/>
+    <field name="price" />
+    <field name="vat"/>
+    <field name="totalPrice" />
+    <field name="inTaxTotalPrice" />
+  </grid>
+
+  <form name="invoice-line-form" title="Invoice" model="com.axelor.invoice.db.InvoiceLine" width="large">
+    <panel name="mainPanel">
+      <field name="product" colSpan="12"  onChange="action-invoice-line-method-set-product-informations,action-invoice-line-method-compute"/>
+      <field name="qty" onChange="action-invoice-line-method-compute"/>
+      <field name="price" onChange="action-invoice-line-method-compute"/>
+      <field name="vat" colSpan="4" onChange="action-invoice-line-method-compute"/>
+      <field name="totalPrice" colSpan="4" readonly="true"/>
+      <field name="inTaxTotalPrice" colSpan="4" readonly="true"/>
+      <field name="description" colSpan="12" widget="html" showTitle="false"/>
+    </panel>
+  </form>
+
+  <action-method name="action-invoice-line-method-set-product-informations">
+    <call class="com.axelor.invoice.web.InvoiceLineController" method="setProductInformations"/>
+  </action-method>
+
+  <action-method name="action-invoice-line-method-compute">
+    <call class="com.axelor.invoice.web.InvoiceLineController" method="compute"/>
+  </action-method>
+
+</object-views>

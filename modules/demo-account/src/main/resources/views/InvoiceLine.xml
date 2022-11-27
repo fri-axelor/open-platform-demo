@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <grid name="invoice-line-grid" id="account-invoice-line-grid" title="Invoices" model="com.axelor.invoice.db.InvoiceLine" extension="true">
+    <extend target="//field[@name='inTaxTotalPrice']">
+      <insert position="after">
+        <field name="account"/>
+      </insert>
+    </extend>
+  </grid>
+
+  <form name="invoice-line-form" title="Invoice" id="account-invoice-line-form" model="com.axelor.invoice.db.InvoiceLine" extension="true">
+    <extend target="//field[@name='qty']">
+      <attribute name="colSpan" value="4"/>
+    </extend>
+    <extend target="//field[@name='price']">
+      <attribute name="colSpan" value="4"/>
+    </extend>
+    <extend target="//field[@name='inTaxTotalPrice']">
+      <insert position="after">
+        <field name="account" colSpan="4" required="true"/>
+      </insert>
+    </extend>
+  </form>
+
+</object-views>

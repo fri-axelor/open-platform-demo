@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+  <grid name="sale-order-grid" id="invoice-sale-order-grid" title="Sale orders" model="com.axelor.sale.db.SaleOrder" extension="true">
+    <extend target="/">
+      <insert position="before">
+        <toolbar>
+          <button onClick="action-invoice-sale-order-invoice-late-sale-order" name="action-invoice-sale-order-invoice-late-sale-order" title="Invoice late"/>
+        </toolbar>
+      </insert>
+    </extend>
+
+    <extend target="//field[@name='orderDate']">
+      <insert position="after">
+        <field name="forecastDate"/>
+      </insert>
+    </extend>
+  </grid>
+
+  <form name="sale-order-form" id="invoice-sale-order-form" title="Sale order" model="com.axelor.sale.db.SaleOrder" extension="true">
+
+    <extend target="//button[@name='validateBtn']">
+      <insert position="after">
+        <button onClick="save,action-sale-order-method-create-invoice-from-sale-order" name="invoiceBtn" title="To invoice" showIf="orderStatus == 2"/>
+      </insert>
+    </extend>
+
+    <extend target="//panel[@name='datePanel']">
+      <attribute name="readonly" value="false"/>
+    </extend>
+
+    <extend target="//field[@name='orderDate']">
+      <attribute name="readonly" value="true"/>
+    </extend>
+
+    <extend target="//field[@name='confirmationDate']">
+      <attribute name="readonly" value="true"/>
+      <insert position="after">
+          <field name="forecastDate" readonlyIf="orderStatus == 4"/>
+          <field name="invoice" showIf="orderStatus == 4" readonly="true"/>
+        </insert>
+    </extend>
+  </form>
+
+  <action-method name="action-sale-order-method-create-invoice-from-sale-order">
+    <call class="com.axelor.invoice.web.InvoiceSaleOrderController" method="createInvoiceFromSaleOrder"/>
+  </action-method>
+
+  <action-method name="action-invoice-sale-order-invoice-late-sale-order">
+    <call class="com.axelor.invoice.web.InvoiceSaleOrderController" method="invoiceLateSaleOrder"/>
+  </action-method>
+
+
+</object-views>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+  <module name="sale" package="com.axelor.sale.db"/>
+
+  <entity name="Product">
+    <many-to-one ref="com.axelor.meta.db.MetaFile" name="image"/>
+    <decimal name="price"/>
+    <string name="name"/>
+    <string name="description" multiline="true" large="true"/>
+  </entity>
+
+</domain-models>

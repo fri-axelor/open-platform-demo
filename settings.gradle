@@ -1,3 +1,6 @@
 rootProject.name = 'open-platform-demo'
 
 include "modules:demo-contact"
+include "modules:demo-sale"
+include "modules:demo-invoice"
+include "modules:demo-account"
